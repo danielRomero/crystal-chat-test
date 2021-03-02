@@ -1,0 +1,22 @@
+name: chat
+version: 0.1.0
+
+authors:
+  - daniel <daniel.romero@meetsam.io>
+
+targets:
+  chat:
+    main: src/chat.cr
+
+crystal: 0.36.1
+
+license: MIT
+
+
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  clear:
+    github: anykeyh/clear
+    branch: master

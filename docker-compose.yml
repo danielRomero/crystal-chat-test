@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./docker/db/tmp:/var/lib/postgresql/data
+      - ./docker/db/1-initialize.sql:/docker-entrypoint-initdb.d/1-intialize.sql
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"] # wait for the db to be ready
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    depends_on:
+      db:
+        condition: service_healthy
